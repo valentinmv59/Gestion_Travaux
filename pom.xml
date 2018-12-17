@@ -4,4 +4,9 @@
   <artifactId>Gestion_Travaux</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>Gestion_Travaux</name>
+  <dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.13</version>
+</dependency>
 </project>
