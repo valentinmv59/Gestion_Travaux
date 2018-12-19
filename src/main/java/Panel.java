@@ -13,13 +13,16 @@ import java.awt.Label;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JLayeredPane;
 
 public class Panel extends JFrame {
 	private JTextField pseudo;
 	private JPasswordField password;
-	public Panel() {
+	public Panel() throws SQLException {
+		bdd base = new bdd("localhost", "mrbs", "root", "root");
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\shado\\eclipse-workspace\\Gestion_Travaux\\src\\main\\java\\logo.png"));
 		setTitle("Maison des Ligues - Gestion Travaux");
 		setSize(new Dimension(450,300));
@@ -55,6 +58,16 @@ public class Panel extends JFrame {
 		corps.add(password);
 		
 		JButton btnConnexion = new JButton("Connexion");
+		btnConnexion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					base.CheckConnexion(pseudo.getText(), password.getSelectedText());
+				} catch (SQLException e) {
+					System.out.println("Pseudo ou Mot de passe Incorrect.");
+					e.printStackTrace();
+				}
+			}
+		});
 		btnConnexion.setBounds(231, 73, 89, 23);
 		corps.add(btnConnexion);
 		

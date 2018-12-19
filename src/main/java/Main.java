@@ -9,6 +9,7 @@ public class Main {
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		Panel app = new Panel();
 		bdd base = new bdd("localhost", "mrbs", "root", "root");
-		base.SelectAll("mrbs_users");
+		//base.SelectAll("mrbs_users");
+		//base.CheckConnexion("admin", "admin");
 	}
 }

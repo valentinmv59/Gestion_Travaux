@@ -27,12 +27,26 @@ public class bdd {
 		Statement Execution = conn.createStatement();
 		
 	    String requete = "SELECT * FROM " +from;
-	    
+	   
 	    ResultSet rs = Execution.executeQuery(requete);
-
-	    System.out.println(rs.getCursorName());
-	    rs.last();
-	    System.out.println("il y a " + rs.getRow() + " enregistrements");
+	    
+	    while(rs.next()) {
+		    System.out.println( "ID : " + rs.getInt("id")+" Email : "+rs.getString("email") + "\n");
+	    }
+	}
+	
+	public void CheckConnexion(String pseudo, String password) throws SQLException {
+		Connection conn = DriverManager.getConnection(connectionURL, user, pswrd);
+		
+		Statement Execution = conn.createStatement();
+		
+	    String requete = "SELECT * FROM mrbs_users where name = '"+pseudo+"' AND password_hash = md5('"+password+"')";
+	    System.out.print(password);
+	    ResultSet rs = Execution.executeQuery(requete);
+	    
+	    while(rs.next()) {
+		    System.out.println( "ID : " + rs.getInt("id")+" Email : "+rs.getString("email") + "\n");
+	    }
 	}
 	
 	public void FermerConnexion() throws SQLException {
