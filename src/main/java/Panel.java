@@ -19,7 +19,7 @@ import javax.swing.JLayeredPane;
 
 public class Panel extends JFrame {
 	private JTextField pseudo;
-	private JPasswordField password;
+	private JTextField password;
 	public Panel() throws SQLException {
 		bdd base = new bdd("localhost", "mrbs", "root", "root");
 		
@@ -53,15 +53,17 @@ public class Panel extends JFrame {
 		corps.add(pseudo);
 		pseudo.setColumns(10);
 		
-		password = new JPasswordField();
+		password = new JTextField();
+		password.setColumns(10);
 		password.setBounds(231, 42, 193, 20);
 		corps.add(password);
+		setVisible(true);
 		
 		JButton btnConnexion = new JButton("Connexion");
 		btnConnexion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					base.CheckConnexion(pseudo.getText(), password.getSelectedText());
+					base.CheckConnexion(pseudo.getText(), password.getText());
 				} catch (SQLException e) {
 					System.out.println("Pseudo ou Mot de passe Incorrect.");
 					e.printStackTrace();
@@ -92,6 +94,6 @@ public class Panel extends JFrame {
 		label.setFont(new Font("DejaVu Sans Condensed", Font.ITALIC, 12));
 		label.setBounds(0, 97, 215, 22);
 		corps.add(label);
-		setVisible(true);
+		
 	}
 }
