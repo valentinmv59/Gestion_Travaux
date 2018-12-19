@@ -3,6 +3,8 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
+import java.awt.Color;
+
 import javax.swing.BoxLayout;
 import java.awt.GridLayout;
 import javax.swing.JTextField;
@@ -16,10 +18,14 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JLayeredPane;
+import javax.swing.JLabel;
+import com.jgoodies.forms.factories.DefaultComponentFactory;
+import java.awt.SystemColor;
 
 public class Panel extends JFrame {
-	private JTextField pseudo;
-	private JTextField password;
+	private JTextField pseudo, password;
+	private Label connStatut;
+	private JPanel Login_Panel, Menu;
 	public Panel() throws SQLException {
 		bdd base = new bdd("localhost", "mrbs", "root", "root");
 		
@@ -32,13 +38,14 @@ public class Panel extends JFrame {
 		JLayeredPane layeredPane = new JLayeredPane();
 		getContentPane().add(layeredPane, BorderLayout.CENTER);
 		
-		JPanel Login_Panel = new JPanel();
-		layeredPane.setLayer(Login_Panel, 0);
+		Login_Panel = new JPanel();
+		layeredPane.setLayer(Login_Panel, 1);
 		Login_Panel.setBounds(0, 0, 444, 270);
 		layeredPane.add(Login_Panel);
 		Login_Panel.setLayout(null);
 		
 		JPanel entete = new JPanel();
+		entete.setBackground(Color.ORANGE);
 		entete.setBounds(10, 11, 424, 118);
 		Login_Panel.add(entete);
 		entete.setLayout(null);
@@ -63,9 +70,16 @@ public class Panel extends JFrame {
 		btnConnexion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					base.CheckConnexion(pseudo.getText(), password.getText());
+					if(base.CheckConnexion(pseudo.getText(), password.getText())) {
+						connStatut.setForeground(Color.GREEN);
+						connStatut.setText("Connexion en cours..");
+					}
+					else {
+						connStatut.setForeground(Color.RED);
+						connStatut.setText("Identifiants incorrects !");
+					}						
 				} catch (SQLException e) {
-					System.out.println("Pseudo ou Mot de passe Incorrect.");
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -91,9 +105,21 @@ public class Panel extends JFrame {
 		corps.add(labelPassword);
 		
 		Label label = new Label("2018 - Maison des Ligues inc.");
+		label.setEnabled(false);
 		label.setFont(new Font("DejaVu Sans Condensed", Font.ITALIC, 12));
-		label.setBounds(0, 97, 215, 22);
+		label.setBounds(0, 107, 215, 22);
 		corps.add(label);
+		
+		connStatut = new Label("Veuillez vous identifier.");
+		connStatut.setAlignment(Label.CENTER);
+		connStatut.setBounds(231, 104, 193, 14);
+		corps.add(connStatut);
+		
+		Menu = new JPanel();
+		layeredPane.setLayer(Menu, 0);
+		Menu.setBounds(0, 0, 444, 271);
+		layeredPane.add(Menu);
+		Menu.setLayout(null);
 		
 	}
 }
