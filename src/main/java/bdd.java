@@ -35,18 +35,16 @@ public class bdd {
 	    }
 	}
 	
-	public void CheckConnexion(String pseudo, String password) throws SQLException {
+	public boolean CheckConnexion(String pseudo, String password) throws SQLException {
 		Connection conn = DriverManager.getConnection(connectionURL, user, pswrd);
 		
 		Statement Execution = conn.createStatement();
 		
 	    String requete = "SELECT * FROM mrbs_users where name = '"+pseudo+"' AND password_hash = md5('"+password+"')";
-	    System.out.print(password);
+
 	    ResultSet rs = Execution.executeQuery(requete);
 	    
-	    while(rs.next()) {
-		    System.out.println( "ID : " + rs.getInt("id")+" Email : "+rs.getString("email") + "\n");
-	    }
+	    return rs.next();
 	}
 	
 	public void FermerConnexion() throws SQLException {
