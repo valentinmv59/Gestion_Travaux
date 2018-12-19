@@ -73,8 +73,6 @@ public class Panel extends JFrame {
 					if(base.CheckConnexion(pseudo.getText(), password.getText())) {
 						connStatut.setForeground(Color.GREEN);
 						connStatut.setText("Connexion en cours..");
-						layeredPane.setLayer(Login_Panel, 0);
-						layeredPane.setLayer(Menu, 1);
 					}
 					else {
 						connStatut.setForeground(Color.RED);
@@ -121,6 +119,7 @@ public class Panel extends JFrame {
 		layeredPane.setLayer(Menu, 0);
 		Menu.setBounds(0, 0, 444, 271);
 		layeredPane.add(Menu);
+		Menu.setLayout(null);
 		
 	}
 }
