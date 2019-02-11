@@ -19,10 +19,11 @@ public class bdd {
 		
 		connectionURL = "jdbc:mysql://" + server + ":3306/" + base + "?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC";
 		
+		conn = DriverManager.getConnection(connectionURL, user, pswrd);
+
 	}
 	
 	public void SelectAll(String from) throws SQLException {
-		Connection conn = DriverManager.getConnection(connectionURL, user, pswrd);
 		
 		Statement Execution = conn.createStatement();
 		
@@ -36,7 +37,9 @@ public class bdd {
 	}
 	
 	public boolean CheckConnexion(String pseudo, String password) throws SQLException {
-		Connection conn = DriverManager.getConnection(connectionURL, user, pswrd);
+		
+		if(conn.isClosed())
+			conn = DriverManager.getConnection(connectionURL, user, pswrd);
 		
 		Statement Execution = conn.createStatement();
 		
@@ -47,7 +50,7 @@ public class bdd {
 	    return rs.next();
 	}
 	
-	public void FermerConnexion() throws SQLException {
+	public void CloseConnexion() throws SQLException {
 		conn.close();
 	}
 	
