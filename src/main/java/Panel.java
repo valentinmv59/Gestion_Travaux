@@ -72,6 +72,7 @@ public class Panel extends JFrame {
 		
 		JButton btnConnexion = new JButton("Connexion");
 		btnConnexion.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					if(base.CheckConnexion(pseudo.getText(), password.getText())) {
@@ -101,6 +102,7 @@ public class Panel extends JFrame {
 		
 		JButton btnQuitter = new JButton("Quitter");
 		btnQuitter.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.exit(0);
 			}
