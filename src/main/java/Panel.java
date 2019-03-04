@@ -1,34 +1,29 @@
-import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import java.awt.CardLayout;
 
 public class Panel extends JFrame {
 	private JTextField pseudo, password;
-	
+
 	private Label connStatut;
 	private JPanel Login_Panel, Menu;
-	
+
 	public Panel() throws SQLException {
 		bdd base = new bdd("localhost", "mrbs", "root", "root");
-		
+
 		ImageIcon image = new ImageIcon( getClass().getResource("logo.png"));
 		setIconImage(image.getImage());
 		setTitle("Maison des Ligues - Gestion Travaux");
@@ -36,44 +31,44 @@ public class Panel extends JFrame {
 		setLocationRelativeTo(null);
 		setResizable(false);
 		getContentPane().setLayout(new CardLayout(0, 0));
-		
+
 		Login_Panel = new JPanel();
 		Login_Panel.setName("Login panel");
 		Login_Panel.setBounds(0, 0, 444, 270);
 		Login_Panel.setLayout(null);
-		
+
 		JPanel entete = new JPanel();
-		
+
 		entete.setBackground(Color.ORANGE);
 		entete.setBounds(10, 11, 424, 118);
 		Login_Panel.add(entete);
 		entete.setLayout(null);
-		
+
 		JLabel Logo = new JLabel("");
 		Logo.setBounds(152, 11, 113, 77);
 		entete.add(Logo);
-		
+
 		ImageIcon image2 = new ImageIcon( getClass().getResource("logo.png"));
-        if (image2 != null)
-    		Logo.setIcon(image2);
-        
-		
+		if (image2 != null)
+			Logo.setIcon(image2);
+
+
 		JPanel corps = new JPanel();
 		corps.setBounds(10, 132, 424, 129);
 		Login_Panel.add(corps);
 		corps.setLayout(null);
-		
+
 		pseudo = new JTextField();
 		pseudo.setBounds(231, 11, 193, 20);
 		corps.add(pseudo);
 		pseudo.setColumns(10);
-		
+
 		password = new JTextField();
 		password.setColumns(10);
 		password.setBounds(231, 42, 193, 20);
 		corps.add(password);
 		setVisible(true);
-			
+
 		JButton btnConnexion = new JButton("Connexion");
 		btnConnexion.addActionListener(new ActionListener() {
 			@Override
@@ -97,12 +92,12 @@ public class Panel extends JFrame {
 		});
 		btnConnexion.setBounds(231, 73, 89, 23);
 		corps.add(btnConnexion);
-		
+
 		connStatut = new Label("Veuillez vous identifier.");
 		connStatut.setAlignment(Label.CENTER);
 		connStatut.setBounds(231, 104, 193, 14);
 		corps.add(connStatut);
-		
+
 		JButton btnQuitter = new JButton("Quitter");
 		btnQuitter.addActionListener(new ActionListener() {
 			@Override
@@ -112,49 +107,50 @@ public class Panel extends JFrame {
 		});
 		btnQuitter.setBounds(335, 73, 89, 23);
 		corps.add(btnQuitter);
-		
+
 		Label labelPseudo = new Label("Pseudo");
 		labelPseudo.setBounds(130, 11, 95, 22);
 		corps.add(labelPseudo);
-		
+
 		Label labelPassword = new Label("Mot de passe");
 		labelPassword.setBounds(130, 42, 95, 22);
 		corps.add(labelPassword);
-		
+
 		Label label = new Label("2018 - Maison des Ligues inc.");
 		label.setEnabled(false);
 		label.setFont(new Font("DejaVu Sans Condensed", Font.ITALIC, 12));
 		label.setBounds(0, 107, 215, 22);
 		corps.add(label);
-		
+
 		Menu = new JPanel();
 		Menu.setName("Menu panel");
 		Menu.setBounds(0, 0, 444, 271);
 		Menu.setLayout(null);
-		
+
 		JPanel entete_menu = new JPanel();
 		entete_menu.setLayout(null);
 		entete_menu.setBackground(Color.GREEN);
 		entete_menu.setBounds(10, 11, 424, 118);
 		Menu.add(entete_menu);
-		
+
 		JPanel corps_menu = new JPanel();
 		corps_menu.setBounds(10, 131, 424, 129);
 		Menu.add(corps_menu);
 		corps_menu.setLayout(null);
-		
+
 		Label label_3 = new Label("2018 - Maison des Ligues inc.");
 		label_3.setFont(new Font("DejaVu Sans Condensed", Font.ITALIC, 12));
 		label_3.setEnabled(false);
 		label_3.setBounds(0, 107, 215, 22);
 		corps_menu.add(label_3);
-		
-		Label labelConnected = new Label("Connecté en tant que "+pseudo.getText());
+
+		Label labelConnected = new Label("ConnectÃ© en tant que "+pseudo.getText());
 		labelConnected.setBounds(10, 11, 137, 14);
 		corps_menu.add(labelConnected);
-		
-		JButton btnDeconnexion = new JButton("Déconnexion");
+
+		JButton btnDeconnexion = new JButton("DÃ©connexion");
 		btnDeconnexion.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					base.CloseConnexion();
@@ -170,22 +166,22 @@ public class Panel extends JFrame {
 		});
 		btnDeconnexion.setBounds(277, 95, 137, 23);
 		corps_menu.add(btnDeconnexion);
-		
-		JButton btnDeclarePanne = new JButton("Déclarer une panne");
+
+		JButton btnDeclarePanne = new JButton("DÃ©clarer une panne");
 		btnDeclarePanne.setBounds(277, 7, 137, 23);
 		corps_menu.add(btnDeclarePanne);
-		
+
 		JButton btnHistoriqueDesTravaux = new JButton("Historique");
 		btnHistoriqueDesTravaux.setBounds(277, 65, 137, 23);
 		corps_menu.add(btnHistoriqueDesTravaux);
-				
+
 		JButton btnValiderLesTravaux = new JButton("Valider les travaux");
 		btnValiderLesTravaux.setBounds(277, 36, 137, 23);
 		corps_menu.add(btnValiderLesTravaux);
-		
+
 		getContentPane().add(Login_Panel, Login_Panel.getName());
 		getContentPane().add(Menu, Menu.getName());
-		
+
 		((CardLayout)getContentPane().getLayout()).show(getContentPane(), Login_Panel.getName());
 	}
 }
