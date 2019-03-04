@@ -23,8 +23,9 @@ import java.awt.CardLayout;
 public class Panel extends JFrame {
 	private JTextField pseudo, password;
 	
-	private Label connStatut;
-	private JPanel Login_Panel, Menu;
+	private Label connStatut, labelConnected;
+	private JPanel Login_Panel, entete, Menu, entete_menu;
+	private JButton btnHistoriqueDesTravaux, btnValiderLesTravaux;
 	
 	public Panel() throws SQLException {
 		bdd base = new bdd("localhost", "mrbs", "root", "root");
@@ -42,7 +43,7 @@ public class Panel extends JFrame {
 		Login_Panel.setBounds(0, 0, 444, 270);
 		Login_Panel.setLayout(null);
 		
-		JPanel entete = new JPanel();
+		entete = new JPanel();
 		
 		entete.setBackground(Color.ORANGE);
 		entete.setBounds(10, 11, 424, 118);
@@ -82,6 +83,14 @@ public class Panel extends JFrame {
 					if(base.CheckConnexion(pseudo.getText(), password.getText())) {
 						connStatut.setForeground(Color.GREEN);
 						connStatut.setText("Connexion en cours..");
+						labelConnected.setText("Bonjour "+base.getUsrPseudo());
+						if(base.getUsrLevel() == 2) {
+							btnValiderLesTravaux.setEnabled(true);
+							btnHistoriqueDesTravaux.setEnabled(true);
+						}else {
+							btnValiderLesTravaux.setEnabled(false);
+							btnHistoriqueDesTravaux.setEnabled(false);							
+						}
 						TimeUnit.SECONDS.sleep(2);
 						((CardLayout)getContentPane().getLayout()).show(getContentPane(), Menu.getName());
 					}
@@ -132,7 +141,7 @@ public class Panel extends JFrame {
 		Menu.setBounds(0, 0, 444, 271);
 		Menu.setLayout(null);
 		
-		JPanel entete_menu = new JPanel();
+		entete_menu = new JPanel();
 		entete_menu.setLayout(null);
 		entete_menu.setBackground(Color.GREEN);
 		entete_menu.setBounds(10, 11, 424, 118);
@@ -149,7 +158,7 @@ public class Panel extends JFrame {
 		label_3.setBounds(0, 107, 215, 22);
 		corps_menu.add(label_3);
 		
-		Label labelConnected = new Label("Connecté en tant que "+pseudo.getText());
+		labelConnected = new Label("Connecté en tant que ");
 		labelConnected.setBounds(10, 11, 137, 14);
 		corps_menu.add(labelConnected);
 		
@@ -175,11 +184,11 @@ public class Panel extends JFrame {
 		btnDeclarePanne.setBounds(277, 7, 137, 23);
 		corps_menu.add(btnDeclarePanne);
 		
-		JButton btnHistoriqueDesTravaux = new JButton("Historique");
+		btnHistoriqueDesTravaux = new JButton("Historique");
 		btnHistoriqueDesTravaux.setBounds(277, 65, 137, 23);
 		corps_menu.add(btnHistoriqueDesTravaux);
 				
-		JButton btnValiderLesTravaux = new JButton("Valider les travaux");
+		btnValiderLesTravaux = new JButton("Valider des travaux");
 		btnValiderLesTravaux.setBounds(277, 36, 137, 23);
 		corps_menu.add(btnValiderLesTravaux);
 		

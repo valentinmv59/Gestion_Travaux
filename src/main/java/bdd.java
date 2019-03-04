@@ -12,6 +12,8 @@ public class bdd {
 	
 	public int connLevel = 999;
 	public boolean connected = false;
+	private String usrPseudo;
+	private int usrLevel;
 
 	public bdd(String server, String base, String user, String pswrd) throws SQLException {
 		super();
@@ -50,13 +52,21 @@ public class bdd {
 
 	    ResultSet rs = Execution.executeQuery(requete);
 	    
-	    
 	    while(rs.next()) {
+	    	usrPseudo = rs.getString(3);
+	    	usrLevel = rs.getInt(2);
 	    	connected = true;
-	    	rs.getInt(1);
 	    }
 	    	    
 	    return connected;   
+	}
+	
+	public String getUsrPseudo() {
+		return usrPseudo.substring(0, 1).toUpperCase() + usrPseudo.substring(1);
+	}
+	
+	public int getUsrLevel() {
+		return usrLevel;
 	}
 	
 	public void CloseConnexion() throws SQLException {
