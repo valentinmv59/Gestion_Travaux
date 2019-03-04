@@ -9,6 +9,9 @@ public class bdd {
 	Connection conn;
 	
 	String connectionURL;
+	
+	public int connLevel = 999;
+	public boolean connected = false;
 
 	public bdd(String server, String base, String user, String pswrd) throws SQLException {
 		super();
@@ -47,7 +50,13 @@ public class bdd {
 
 	    ResultSet rs = Execution.executeQuery(requete);
 	    
-	    return rs.next();
+	    
+	    while(rs.next()) {
+	    	connected = true;
+	    	rs.getInt(1);
+	    }
+	    	    
+	    return connected;   
 	}
 	
 	public void CloseConnexion() throws SQLException {

@@ -92,7 +92,7 @@ public class Demande extends JFrame {
 	}
 	private JLabel getLblIntitulDesTravaux() {
 		if (lblIntitulDesTravaux == null) {
-			lblIntitulDesTravaux = new JLabel("IntitulÃ© des travaux :");
+			lblIntitulDesTravaux = new JLabel("Intitulé des travaux :");
 			lblIntitulDesTravaux.setBounds(80, 72, 144, 16);
 		}
 		return lblIntitulDesTravaux;
@@ -107,7 +107,7 @@ public class Demande extends JFrame {
 	}
 	private JLabel getLblCommentairesdtails() {
 		if (lblCommentairesdtails == null) {
-			lblCommentairesdtails = new JLabel("Commentaires/dÃ©tails : ");
+			lblCommentairesdtails = new JLabel("Commentaires/détails : ");
 			lblCommentairesdtails.setBounds(80, 118, 160, 16);
 		}
 		return lblCommentairesdtails;
