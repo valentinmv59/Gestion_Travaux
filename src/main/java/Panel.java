@@ -13,13 +13,19 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JTable;
+import java.awt.BorderLayout;
 
 public class Panel extends JFrame {
 	private JTextField pseudo, password;	
 	private Label connStatut, labelConnected;
-	private JPanel Login_Panel, entete, Menu, entete_menu;
+	private JPanel Login_Panel, entete, Menu, entete_menu, Historique;
 	private JButton btnHistoriqueDesTravaux, btnValiderLesTravaux;
+	private JTable table;
+	private DefaultTableModel tableModel;
 	public Panel() throws SQLException {
 		bdd base = new bdd("localhost", "mrbs", "root", "root");
 
@@ -41,7 +47,12 @@ public class Panel extends JFrame {
 		entete.setBounds(10, 11, 424, 118);
 		Login_Panel.add(entete);
 		entete.setLayout(null);
-
+		
+		Historique = new JPanel();
+		Historique.setLayout(null);
+		Historique.setName("Historique");
+		getContentPane().add(Historique, Historique.getName());
+		
 		JLabel Logo = new JLabel("");
 		Logo.setBounds(152, 11, 113, 77);
 		entete.add(Logo);
@@ -178,6 +189,11 @@ public class Panel extends JFrame {
 		corps_menu.add(btnDeclarePanne);
 		
 		btnHistoriqueDesTravaux = new JButton("Historique");
+		btnHistoriqueDesTravaux.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				((CardLayout)getContentPane().getLayout()).show(getContentPane(), Historique.getName());
+			}
+		});
 		btnHistoriqueDesTravaux.setBounds(277, 65, 137, 23);
 		corps_menu.add(btnHistoriqueDesTravaux);
 				
@@ -189,5 +205,36 @@ public class Panel extends JFrame {
 		getContentPane().add(Menu, Menu.getName());
 
 		((CardLayout)getContentPane().getLayout()).show(getContentPane(), Login_Panel.getName());
+		
+		JPanel Entête_historique = new JPanel();
+		Entête_historique.setLayout(null);
+		Entête_historique.setBackground(new Color(46, 139, 87));
+		Entête_historique.setBounds(10, 11, 424, 118);
+		Historique.add(Entête_historique);
+		
+		Label label_2 = new Label("Connect\u00E9 en tant que ");
+		label_2.setBounds(10, 94, 137, 14);
+		Entête_historique.add(label_2);
+		
+		JButton btnRetourAccueil = new JButton("Accueil");
+		btnRetourAccueil.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				((CardLayout)getContentPane().getLayout()).show(getContentPane(), Menu.getName());
+			}
+		});
+		btnRetourAccueil.setBounds(277, 84, 137, 23);
+		Entête_historique.add(btnRetourAccueil);
+		
+		JPanel corps_historique = new JPanel();
+		corps_historique.setBounds(10, 131, 424, 129);
+		Historique.add(corps_historique);
+		corps_historique.setLayout(new BorderLayout(0, 0));
+		
+		String[] entetes = {"Travaux", "Descriptif", "Date début", "Etat"};
+		table = new JTable();
+		JScrollPane scrollpan = new JScrollPane(table);
+		tableModel = new DefaultTableModel(entetes, 6);
+		table.setModel(tableModel);
+		corps_historique.add(scrollpan);
 	}
 }
