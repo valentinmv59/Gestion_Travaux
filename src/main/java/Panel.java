@@ -173,7 +173,7 @@ public class Panel extends JFrame {
 		btnDeconnexion.setBounds(277, 95, 137, 23);
 		corps_menu.add(btnDeconnexion);
 
-		JButton btnDeclarePanne = new JButton("D�clarer une panne");
+		JButton btnDeclarePanne = new JButton("Déclarer une panne");
 		btnDeclarePanne.setBounds(277, 7, 137, 23);
 		corps_menu.add(btnDeclarePanne);
 

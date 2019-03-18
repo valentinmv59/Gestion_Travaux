@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class Demande extends JFrame {
+public class DemandeFrame extends JFrame {
 	private JPanel panel;
 	private JPanel panel_1;
 	private JTextField txtHyj;
@@ -25,7 +25,7 @@ public class Demande extends JFrame {
 	private JLabel lblMaison;
 	private JComboBox comboBox_2;
 	private JLabel lblPriorit;
-	public Demande() {
+	public DemandeFrame() {
 		setTitle("Maison des ligues - Gestion Travaux" );
 		getContentPane().add(getPanel(), BorderLayout.NORTH);
 		getContentPane().add(getPanel_1(), BorderLayout.CENTER);
