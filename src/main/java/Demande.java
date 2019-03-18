@@ -23,6 +23,8 @@ public class Demande extends JFrame {
 	private JLabel lblCommentairesdtails;
 	private JTextField textField_1;
 	private JLabel lblMaison;
+	private JComboBox comboBox_2;
+	private JLabel lblPriorit;
 	public Demande() {
 		setTitle("Maison des ligues - Gestion Travaux" );
 		getContentPane().add(getPanel(), BorderLayout.NORTH);
@@ -50,6 +52,8 @@ public class Demande extends JFrame {
 			panel_1.add(getLblCommentairesdtails());
 			panel_1.add(getTextField_1());
 			panel_1.add(getLblMaison());
+			panel_1.add(getComboBox_2());
+			panel_1.add(getLblPriorit());
 		}
 		return panel_1;
 	}
@@ -65,57 +69,57 @@ public class Demande extends JFrame {
 	private JComboBox getComboBox() {
 		if (comboBox == null) {
 			comboBox = new JComboBox();
-			comboBox.setBounds(236, 12, 52, 27);
+			comboBox.setBounds(236, 8, 52, 27);
 		}
 		return comboBox;
 	}
 	private JLabel getLblQui() {
 		if (lblQui == null) {
 			lblQui = new JLabel("Qui ?");
-			lblQui.setBounds(163, 16, 61, 16);
+			lblQui.setBounds(163, 12, 61, 16);
 		}
 		return lblQui;
 	}
 	private JComboBox getComboBox_1() {
 		if (comboBox_1 == null) {
 			comboBox_1 = new JComboBox();
-			comboBox_1.setBounds(236, 40, 52, 27);
+			comboBox_1.setBounds(236, 36, 52, 27);
 		}
 		return comboBox_1;
 	}
 	private JLabel getLblO() {
 		if (lblO == null) {
 			lblO = new JLabel("Où ? ");
-			lblO.setBounds(163, 44, 61, 16);
+			lblO.setBounds(163, 40, 61, 16);
 		}
 		return lblO;
 	}
 	private JLabel getLblIntitulDesTravaux() {
 		if (lblIntitulDesTravaux == null) {
-			lblIntitulDesTravaux = new JLabel("Intitul� des travaux :");
-			lblIntitulDesTravaux.setBounds(80, 72, 144, 16);
+			lblIntitulDesTravaux = new JLabel("Intitulé des travaux :");
+			lblIntitulDesTravaux.setBounds(80, 95, 144, 16);
 		}
 		return lblIntitulDesTravaux;
 	}
 	private JTextField getTextField() {
 		if (textField == null) {
 			textField = new JTextField();
-			textField.setBounds(80, 89, 278, 26);
+			textField.setBounds(80, 111, 278, 36);
 			textField.setColumns(10);
 		}
 		return textField;
 	}
 	private JLabel getLblCommentairesdtails() {
 		if (lblCommentairesdtails == null) {
-			lblCommentairesdtails = new JLabel("Commentaires/d�tails : ");
-			lblCommentairesdtails.setBounds(80, 118, 160, 16);
+			lblCommentairesdtails = new JLabel("Commentaires/détails : ");
+			lblCommentairesdtails.setBounds(80, 149, 160, 16);
 		}
 		return lblCommentairesdtails;
 	}
 	private JTextField getTextField_1() {
 		if (textField_1 == null) {
 			textField_1 = new JTextField();
-			textField_1.setBounds(80, 138, 278, 79);
+			textField_1.setBounds(80, 170, 278, 48);
 			textField_1.setColumns(10);
 		}
 		return textField_1;
@@ -127,5 +131,19 @@ public class Demande extends JFrame {
 			lblMaison.setBounds(6, 230, 256, 16);
 		}
 		return lblMaison;
+	}
+	private JComboBox getComboBox_2() {
+		if (comboBox_2 == null) {
+			comboBox_2 = new JComboBox();
+			comboBox_2.setBounds(236, 63, 52, 27);
+		}
+		return comboBox_2;
+	}
+	private JLabel getLblPriorit() {
+		if (lblPriorit == null) {
+			lblPriorit = new JLabel("Priorité ?");
+			lblPriorit.setBounds(163, 68, 61, 16);
+		}
+		return lblPriorit;
 	}
 }
