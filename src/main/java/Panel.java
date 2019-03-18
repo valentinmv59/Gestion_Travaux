@@ -41,7 +41,7 @@ public class Panel extends JFrame {
 		Login_Panel.setName("Login panel");
 		Login_Panel.setBounds(0, 0, 444, 270);
 		Login_Panel.setLayout(null);
-		
+
 		entete = new JPanel();
 		entete.setBackground(Color.ORANGE);
 		entete.setBounds(10, 11, 424, 118);
@@ -107,7 +107,7 @@ public class Panel extends JFrame {
 				}
 			}
 		});
-		btnConnexion.setBounds(231, 73, 89, 23);
+		btnConnexion.setBounds(231, 73, 102, 23);
 		corps.add(btnConnexion);
 
 		connStatut = new Label("Veuillez vous identifier.");
@@ -143,7 +143,7 @@ public class Panel extends JFrame {
 		Menu.setName("Menu panel");
 		Menu.setBounds(0, 0, 444, 271);
 		Menu.setLayout(null);
-		
+
 		entete_menu = new JPanel();
 		entete_menu.setLayout(null);
 		entete_menu.setBackground(Color.GREEN);
@@ -160,12 +160,12 @@ public class Panel extends JFrame {
 		label_3.setEnabled(false);
 		label_3.setBounds(0, 107, 215, 22);
 		corps_menu.add(label_3);
-		
-		labelConnected = new Label("Connecté en tant que ");
+
+		labelConnected = new Label("ConnectÃ© en tant que ");
 		labelConnected.setBounds(10, 11, 137, 14);
 		corps_menu.add(labelConnected);
 
-		JButton btnDeconnexion = new JButton("Déconnexion");
+		JButton btnDeconnexion = new JButton("DÃ©connexion");
 		btnDeconnexion.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -184,10 +184,10 @@ public class Panel extends JFrame {
 		btnDeconnexion.setBounds(277, 95, 137, 23);
 		corps_menu.add(btnDeconnexion);
 
-		JButton btnDeclarePanne = new JButton("Déclarer une panne");
+		JButton btnDeclarePanne = new JButton("DÃ©clarer une panne");
 		btnDeclarePanne.setBounds(277, 7, 137, 23);
 		corps_menu.add(btnDeclarePanne);
-		
+
 		btnHistoriqueDesTravaux = new JButton("Historique");
 		btnHistoriqueDesTravaux.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -196,7 +196,7 @@ public class Panel extends JFrame {
 		});
 		btnHistoriqueDesTravaux.setBounds(277, 65, 137, 23);
 		corps_menu.add(btnHistoriqueDesTravaux);
-				
+
 		btnValiderLesTravaux = new JButton("Valider des travaux");
 		btnValiderLesTravaux.setBounds(277, 36, 137, 23);
 		corps_menu.add(btnValiderLesTravaux);
