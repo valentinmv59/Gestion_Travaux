@@ -3,6 +3,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class bdd {
 	private String server, base, user, pswrd;
@@ -22,7 +24,7 @@ public class bdd {
 		this.user = user;
 		this.pswrd = pswrd;
 
-		connectionURL = "jdbc:mysql://" + server + ":3307/" + base + "?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC";
+		connectionURL = "jdbc:mysql://" + server + ":3306/" + base + "?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC";
 
 		conn = DriverManager.getConnection(connectionURL, user, pswrd);
 
@@ -68,7 +70,27 @@ public class bdd {
 	public int getUsrLevel() {
 		return usrLevel;
 	}
+	
+	public List<Tache> findAllTaches() throws SQLException {
+	    List<Tache> listTaches = new ArrayList<Tache>();
+	    
+	    if(conn.isClosed())
+			conn = DriverManager.getConnection(connectionURL, user, pswrd);
 
+		Statement Execution = conn.createStatement();
+	    
+	    String requete = "SELECT * FROM travaux";
+
+		ResultSet rs = Execution.executeQuery(requete);
+	    
+		while(rs.next()) {
+			final Tache tache = Tache.rsetToTache(rs);
+			listTaches.add(tache);
+		}
+		
+	    return listTaches;
+	}
+	
 	public void CloseConnexion() throws SQLException {
 		conn.close();
 	}

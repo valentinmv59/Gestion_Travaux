@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -6,6 +7,7 @@ import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.ImageIcon;
@@ -14,10 +16,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JTable;
-import java.awt.BorderLayout;
+import javax.swing.JTextField;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 
 public class Panel extends JFrame {
 	private JTextField pseudo, password;	
@@ -25,9 +27,38 @@ public class Panel extends JFrame {
 	private JPanel Login_Panel, entete, Menu, entete_menu, Historique;
 	private JButton btnHistoriqueDesTravaux, btnValiderLesTravaux;
 	private JTable table;
-	private DefaultTableModel tableModel;
+	private List <Tache> tachesList;
+	
+	public class TacheTableModel extends AbstractTableModel {
+
+		@Override
+		public int getRowCount() {
+			// TODO Auto-generated method stub
+			return tachesList == null ? 0 : tachesList.size();
+			//return 6;
+		}
+
+		@Override
+		public int getColumnCount() {
+			// TODO Auto-generated method stub
+			return 5;
+		}
+
+		@Override
+		public Object getValueAt(int rowIndex, int columnIndex) {
+			if ( columnIndex == 0 )
+				return tachesList.get(rowIndex).getDescriptif();
+			return null;
+		}
+		
+	}
+	
+	private TacheTableModel tableModel;
+	
+	bdd base;
+	
 	public Panel() throws SQLException {
-		bdd base = new bdd("localhost", "mrbs", "root", "root");
+		base = new bdd("localhost", "mrbs", "root", "root");
 
 		ImageIcon image = new ImageIcon( getClass().getResource("logo.png"));
 		setIconImage(image.getImage());
@@ -161,11 +192,11 @@ public class Panel extends JFrame {
 		label_3.setBounds(0, 107, 215, 22);
 		corps_menu.add(label_3);
 
-		labelConnected = new Label("ConnectÃ© en tant que ");
+		labelConnected = new Label("Connecté en tant que ");
 		labelConnected.setBounds(10, 11, 137, 14);
 		corps_menu.add(labelConnected);
 
-		JButton btnDeconnexion = new JButton("DÃ©connexion");
+		JButton btnDeconnexion = new JButton("Déconnexion");
 		btnDeconnexion.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -184,7 +215,7 @@ public class Panel extends JFrame {
 		btnDeconnexion.setBounds(277, 95, 137, 23);
 		corps_menu.add(btnDeconnexion);
 
-		JButton btnDeclarePanne = new JButton("DÃ©clarer une panne");
+		JButton btnDeclarePanne = new JButton("Déclarer une panne");
 		btnDeclarePanne.setBounds(277, 7, 137, 23);
 		corps_menu.add(btnDeclarePanne);
 
@@ -192,6 +223,12 @@ public class Panel extends JFrame {
 		btnHistoriqueDesTravaux.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				((CardLayout)getContentPane().getLayout()).show(getContentPane(), Historique.getName());
+				try {
+					alimenteTableTache();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnHistoriqueDesTravaux.setBounds(277, 65, 137, 23);
@@ -212,7 +249,7 @@ public class Panel extends JFrame {
 		Entête_historique.setBounds(10, 11, 424, 118);
 		Historique.add(Entête_historique);
 		
-		Label label_2 = new Label("Connect\u00E9 en tant que ");
+		Label label_2 = new Label("Connecté en tant que ");
 		label_2.setBounds(10, 94, 137, 14);
 		Entête_historique.add(label_2);
 		
@@ -233,8 +270,14 @@ public class Panel extends JFrame {
 		String[] entetes = {"Travaux", "Descriptif", "Date début", "Etat"};
 		table = new JTable();
 		JScrollPane scrollpan = new JScrollPane(table);
-		tableModel = new DefaultTableModel(entetes, 6);
+		//tachesList = base.findAllTaches();
+		tableModel = new TacheTableModel();
 		table.setModel(tableModel);
 		corps_historique.add(scrollpan);
+	}
+	
+	protected void alimenteTableTache() throws SQLException {
+		tachesList = base.findAllTaches();
+		tableModel.fireTableDataChanged();;
 	}
 }
