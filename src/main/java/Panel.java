@@ -20,6 +20,7 @@ public class Panel extends JFrame {
 	private Label connStatut, labelConnected;
 	private JPanel Login_Panel, entete, Menu, entete_menu;
 	private JButton btnHistoriqueDesTravaux, btnValiderLesTravaux;
+	private DemandeFrame demandeFrame;
 	public Panel() throws SQLException {
 		bdd base = new bdd("localhost", "mrbs", "root", "root");
 
@@ -50,6 +51,8 @@ public class Panel extends JFrame {
 		if (image2 != null)
 			Logo.setIcon(image2);
 
+		demandeFrame = new DemandeFrame ();
+		demandeFrame.setName("demande");
 
 		JPanel corps = new JPanel();
 		corps.setBounds(10, 132, 424, 129);
@@ -173,8 +176,19 @@ public class Panel extends JFrame {
 		btnDeconnexion.setBounds(277, 95, 137, 23);
 		corps_menu.add(btnDeconnexion);
 
-		JButton btnDeclarePanne = new JButton("Déclarer une panne");
-		btnDeclarePanne.setBounds(277, 7, 137, 23);
+		JButton btnDeclarePanne = new JButton("Déclarer une panne !");
+		btnDeclarePanne.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//((CardLayout)getContentPane().getLayout()).show(getContentPane(), demandeFrame.getName());
+				DemandeFrame toto = new DemandeFrame();
+				toto.setBounds(10, 10, 500, 300);
+				toto.setVisible(true);
+
+			}
+		});
+
+		btnDeclarePanne.setBounds(221, 6, 193, 23);
 		corps_menu.add(btnDeclarePanne);
 
 		btnHistoriqueDesTravaux = new JButton("Historique");
@@ -182,7 +196,7 @@ public class Panel extends JFrame {
 		corps_menu.add(btnHistoriqueDesTravaux);
 
 		btnValiderLesTravaux = new JButton("Valider des travaux");
-		btnValiderLesTravaux.setBounds(277, 36, 137, 23);
+		btnValiderLesTravaux.setBounds(243, 36, 171, 23);
 		corps_menu.add(btnValiderLesTravaux);
 
 		getContentPane().add(Login_Panel, Login_Panel.getName());
