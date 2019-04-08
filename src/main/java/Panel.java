@@ -19,21 +19,20 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 
 public class Panel extends JFrame {
 	private JTextField pseudo, password;	
 	private Label connStatut, labelConnected;
 	private JPanel Login_Panel, entete, Menu, entete_menu, Historique;
 	private JButton btnHistoriqueDesTravaux, btnValiderLesTravaux;
-	
+
 	private JTable table;
 	private List <Tache> tachesList;
-	
+
 	public class TacheTableModel extends AbstractTableModel {
-		
-		String[] entetes = {"Id", "Libelle", "Descriptif", "Priorité"};
-		
+
+		String[] entetes = {"Id", "Libelle", "Descriptif", "PrioritÃ©"};
+
 		@Override
 		public int getRowCount() {
 			// TODO Auto-generated method stub
@@ -63,16 +62,16 @@ public class Panel extends JFrame {
 				return tachesList.get(rowIndex).getPriorite();
 			return null;
 		}
-		
-		
+
+
 	}
-	
+
 	private TacheTableModel tableModel;
-	
+
 	Bdd base;
-	
+
 	private DemandeFrame demandeFrame;
-	
+
 	public Panel() throws SQLException {
 		base = new Bdd("localhost", "mrbs", "root", "root");
 
@@ -94,12 +93,12 @@ public class Panel extends JFrame {
 		entete.setBounds(10, 11, 424, 118);
 		Login_Panel.add(entete);
 		entete.setLayout(null);
-		
+
 		Historique = new JPanel();
 		Historique.setLayout(null);
 		Historique.setName("Historique");
 		getContentPane().add(Historique, Historique.getName());
-		
+
 		JLabel Logo = new JLabel("");
 		Logo.setBounds(152, 11, 113, 77);
 		entete.add(Logo);
@@ -210,11 +209,11 @@ public class Panel extends JFrame {
 		label_3.setBounds(0, 107, 215, 22);
 		corps_menu.add(label_3);
 
-		labelConnected = new Label("Connecté en tant que ");
+		labelConnected = new Label("ConnectÃ© en tant que ");
 		labelConnected.setBounds(10, 11, 137, 14);
 		corps_menu.add(labelConnected);
 
-		JButton btnDeconnexion = new JButton("Déconnexion");
+		JButton btnDeconnexion = new JButton("DÃ©connexion");
 		btnDeconnexion.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -233,12 +232,25 @@ public class Panel extends JFrame {
 		btnDeconnexion.setBounds(277, 95, 137, 23);
 		corps_menu.add(btnDeconnexion);
 
-		JButton btnDeclarePanne = new JButton("Déclarer une panne");
-		btnDeclarePanne.setBounds(277, 7, 137, 23);
+		JButton btnDeclarePanne = new JButton("DÃ©clarer une panne !");
+		btnDeclarePanne.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//((CardLayout)getContentPane().getLayout()).show(getContentPane(), demandeFrame.getName());
+				DemandeFrame toto = new DemandeFrame();
+				toto.setBounds(10, 10, 500, 300);
+				toto.setVisible(true);
+
+			}
+		});
+
+		btnDeclarePanne.setBounds(221, 6, 193, 23);
+
 		corps_menu.add(btnDeclarePanne);
 
 		btnHistoriqueDesTravaux = new JButton("Historique");
 		btnHistoriqueDesTravaux.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				((CardLayout)getContentPane().getLayout()).show(getContentPane(), Historique.getName());
 				try {
@@ -263,31 +275,32 @@ public class Panel extends JFrame {
 		getContentPane().add(Menu, Menu.getName());
 
 		((CardLayout)getContentPane().getLayout()).show(getContentPane(), Login_Panel.getName());
-		
-		JPanel Entête_historique = new JPanel();
-		Entête_historique.setLayout(null);
-		Entête_historique.setBackground(new Color(46, 139, 87));
-		Entête_historique.setBounds(10, 11, 424, 118);
-		Historique.add(Entête_historique);
-		
-		Label label_2 = new Label("Connecté en tant que ");
+
+		JPanel Entete_historique = new JPanel();
+		Entete_historique.setLayout(null);
+		Entete_historique.setBackground(new Color(46, 139, 87));
+		Entete_historique.setBounds(10, 11, 424, 118);
+		Historique.add(Entete_historique);
+
+		Label label_2 = new Label("Connectï¿½ en tant que ");
 		label_2.setBounds(10, 94, 137, 14);
-		Entête_historique.add(label_2);
-		
+		Entete_historique.add(label_2);
+
 		JButton btnRetourAccueil = new JButton("Accueil");
 		btnRetourAccueil.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				((CardLayout)getContentPane().getLayout()).show(getContentPane(), Menu.getName());
 			}
 		});
 		btnRetourAccueil.setBounds(277, 84, 137, 23);
-		Entête_historique.add(btnRetourAccueil);
-		
+		Entete_historique.add(btnRetourAccueil);
+
 		JPanel corps_historique = new JPanel();
 		corps_historique.setBounds(10, 131, 424, 129);
 		Historique.add(corps_historique);
 		corps_historique.setLayout(new BorderLayout(0, 0));
-		
+
 		table = new JTable();
 		JScrollPane scrollpan = new JScrollPane(table);
 		//tachesList = base.findAllTaches();
@@ -295,7 +308,7 @@ public class Panel extends JFrame {
 		table.setModel(tableModel);
 		corps_historique.add(scrollpan);
 	}
-	
+
 	protected void alimenteTableTache() throws SQLException {
 		tachesList = base.findAllTaches();
 		tableModel.fireTableDataChanged();;
