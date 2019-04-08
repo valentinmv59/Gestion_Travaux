@@ -30,7 +30,9 @@ public class Panel extends JFrame {
 	private List <Tache> tachesList;
 	
 	public class TacheTableModel extends AbstractTableModel {
-
+		
+		String[] entetes = {"Id", "Libelle", "Descriptif", "Priorité"};
+		
 		@Override
 		public int getRowCount() {
 			// TODO Auto-generated method stub
@@ -40,25 +42,36 @@ public class Panel extends JFrame {
 
 		@Override
 		public int getColumnCount() {
-			// TODO Auto-generated method stub
-			return 5;
+			return entetes.length;
+		}
+
+		@Override
+		public String getColumnName(int column) {
+			return entetes[column];
 		}
 
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
 			if ( columnIndex == 0 )
+				return tachesList.get(rowIndex).getId();
+			if ( columnIndex == 1 )
+				return tachesList.get(rowIndex).getLibelle();
+			if ( columnIndex == 2 )
 				return tachesList.get(rowIndex).getDescriptif();
+			if ( columnIndex == 3 )
+				return tachesList.get(rowIndex).getPriorite();
 			return null;
 		}
+		
 		
 	}
 	
 	private TacheTableModel tableModel;
 	
-	bdd base;
+	Bdd base;
 	
 	public Panel() throws SQLException {
-		base = new bdd("localhost", "mrbs", "root", "root");
+		base = new Bdd("localhost", "mrbs", "root", "root");
 
 		ImageIcon image = new ImageIcon( getClass().getResource("logo.png"));
 		setIconImage(image.getImage());
@@ -267,7 +280,6 @@ public class Panel extends JFrame {
 		Historique.add(corps_historique);
 		corps_historique.setLayout(new BorderLayout(0, 0));
 		
-		String[] entetes = {"Travaux", "Descriptif", "Date début", "Etat"};
 		table = new JTable();
 		JScrollPane scrollpan = new JScrollPane(table);
 		//tachesList = base.findAllTaches();

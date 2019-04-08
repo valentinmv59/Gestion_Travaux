@@ -6,7 +6,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class bdd {
+public class Bdd {
 	private String server, base, user, pswrd;
 	Connection conn;
 
@@ -17,7 +17,7 @@ public class bdd {
 	private String usrPseudo;
 	private int usrLevel;
 
-	public bdd(String server, String base, String user, String pswrd) throws SQLException {
+	public Bdd(String server, String base, String user, String pswrd) throws SQLException {
 		super();
 		this.server = server;
 		this.base = base;
