@@ -19,13 +19,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 
 public class Panel extends JFrame {
 	private JTextField pseudo, password;	
 	private Label connStatut, labelConnected;
 	private JPanel Login_Panel, entete, Menu, entete_menu, Historique;
 	private JButton btnHistoriqueDesTravaux, btnValiderLesTravaux;
+	
 	private JTable table;
 	private List <Tache> tachesList;
 	
@@ -70,6 +70,8 @@ public class Panel extends JFrame {
 	
 	Bdd base;
 	
+	private DemandeFrame demandeFrame;
+	
 	public Panel() throws SQLException {
 		base = new Bdd("localhost", "mrbs", "root", "root");
 
@@ -91,12 +93,7 @@ public class Panel extends JFrame {
 		entete.setBounds(10, 11, 424, 118);
 		Login_Panel.add(entete);
 		entete.setLayout(null);
-		
-		Historique = new JPanel();
-		Historique.setLayout(null);
-		Historique.setName("Historique");
-		getContentPane().add(Historique, Historique.getName());
-		
+
 		JLabel Logo = new JLabel("");
 		Logo.setBounds(152, 11, 113, 77);
 		entete.add(Logo);
@@ -105,6 +102,8 @@ public class Panel extends JFrame {
 		if (image2 != null)
 			Logo.setIcon(image2);
 
+		demandeFrame = new DemandeFrame ();
+		demandeFrame.setName("demande");
 
 		JPanel corps = new JPanel();
 		corps.setBounds(10, 132, 424, 129);
@@ -205,11 +204,11 @@ public class Panel extends JFrame {
 		label_3.setBounds(0, 107, 215, 22);
 		corps_menu.add(label_3);
 
-		labelConnected = new Label("Connecté en tant que ");
+		labelConnected = new Label("ConnectÃ© en tant que ");
 		labelConnected.setBounds(10, 11, 137, 14);
 		corps_menu.add(labelConnected);
 
-		JButton btnDeconnexion = new JButton("Déconnexion");
+		JButton btnDeconnexion = new JButton("DÃ©connexion");
 		btnDeconnexion.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -228,27 +227,27 @@ public class Panel extends JFrame {
 		btnDeconnexion.setBounds(277, 95, 137, 23);
 		corps_menu.add(btnDeconnexion);
 
-		JButton btnDeclarePanne = new JButton("Déclarer une panne");
-		btnDeclarePanne.setBounds(277, 7, 137, 23);
+		JButton btnDeclarePanne = new JButton("DÃ©clarer une panne !");
+		btnDeclarePanne.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//((CardLayout)getContentPane().getLayout()).show(getContentPane(), demandeFrame.getName());
+				DemandeFrame toto = new DemandeFrame();
+				toto.setBounds(10, 10, 500, 300);
+				toto.setVisible(true);
+
+			}
+		});
+
+		btnDeclarePanne.setBounds(221, 6, 193, 23);
 		corps_menu.add(btnDeclarePanne);
 
 		btnHistoriqueDesTravaux = new JButton("Historique");
-		btnHistoriqueDesTravaux.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				((CardLayout)getContentPane().getLayout()).show(getContentPane(), Historique.getName());
-				try {
-					alimenteTableTache();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
 		btnHistoriqueDesTravaux.setBounds(277, 65, 137, 23);
 		corps_menu.add(btnHistoriqueDesTravaux);
 
 		btnValiderLesTravaux = new JButton("Valider des travaux");
-		btnValiderLesTravaux.setBounds(277, 36, 137, 23);
+		btnValiderLesTravaux.setBounds(243, 36, 171, 23);
 		corps_menu.add(btnValiderLesTravaux);
 
 		getContentPane().add(Login_Panel, Login_Panel.getName());
