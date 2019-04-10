@@ -6,6 +6,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JComboBox;
+
 public class Bdd {
 	private String server, base, user, pswrd;
 	Connection conn;
@@ -24,10 +26,24 @@ public class Bdd {
 		this.user = user;
 		this.pswrd = pswrd;
 
-		connectionURL = "jdbc:mysql://" + server + ":3306/" + base + "?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC";
+		connectionURL = "jdbc:mysql://" + server + ":3307/" + base + "?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC";
 
 		conn = DriverManager.getConnection(connectionURL, user, pswrd);
 
+	}
+
+	public void RemplirComboBox(String table, String champ,JComboBox<String> Liste) throws SQLException {
+
+		Statement Execution = conn.createStatement();
+
+		String requete = "SELECT " + champ + " FROM " + table;
+
+		ResultSet rs = Execution.executeQuery(requete);
+
+		while(rs.next()) {
+			Liste.addItem(rs.getString("room_name"));
+
+		}
 	}
 
 	public void SelectAll(String from) throws SQLException {
@@ -70,27 +86,27 @@ public class Bdd {
 	public int getUsrLevel() {
 		return usrLevel;
 	}
-	
+
 	public List<Tache> findAllTaches() throws SQLException {
-	    List<Tache> listTaches = new ArrayList<Tache>();
-	    
-	    if(conn.isClosed())
+		List<Tache> listTaches = new ArrayList<Tache>();
+
+		if(conn.isClosed())
 			conn = DriverManager.getConnection(connectionURL, user, pswrd);
 
 		Statement Execution = conn.createStatement();
-	    
-	    String requete = "SELECT * FROM travaux";
+
+		String requete = "SELECT * FROM travaux";
 
 		ResultSet rs = Execution.executeQuery(requete);
-	    
+
 		while(rs.next()) {
 			final Tache tache = Tache.rsetToTache(rs);
 			listTaches.add(tache);
 		}
-		
-	    return listTaches;
+
+		return listTaches;
 	}
-	
+
 	public void CloseConnexion() throws SQLException {
 		conn.close();
 	}
